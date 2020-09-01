@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-6 mt-3">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Session</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Eingeloggt: {{ (isLoggedIn$ | async) ? 'Ja' : 'Nein'}}</p>
+        <p>Token: {{ (userToken$ | async) || 'N/A' }}</p>
+      </mat-card-content>
+      <mat-card-actions class="d-flex justify-content-between">
+        <div>
+          <button [disabled]="!(isLoggedIn$ | async) || !(isTokenValid$ | async)" mat-raised-button color="accent"
+            (click)="userService.invalidateToken()">{{ 'Token Invalidieren' | uppercase }}</button>
+        </div>
+        <div>
+          <button [disabled]="!(isLoggedIn$ | async)" mat-raised-button color="primary" (click)="userService.logout()">{{
+            'Logout' | uppercase }}</button>
+          <button [disabled]="isLoggedIn$ | async" mat-raised-button color="primary" (click)="userService.login('Testnutzer')">{{
+            'Login' | uppercase }}</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="col-md-6 mt-3">
+    <div class="row">
+      <div class="col">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>API-Anfragen</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Aktuelles Würfel-Ergebnis: {{ (roll$ | async) || 'N/A' }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="d-flex justify-content-between">
+              <mat-slide-toggle [checked]="automaticRetry" (change)="automaticRetry = $event.checked">Automatischer
+                Retry</mat-slide-toggle>
+              <div class="d-flex">
+                <mat-spinner [diameter]="30" [ngClass]="{'d-none': !requestRunning}"></mat-spinner>
+                <button [disabled]="requestRunning" mat-raised-button color="primary" (click)="updateData()">{{
+                  'Würfeln' |
+                  uppercase }}
+                </button>
+              </div>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div @rollResult class="col-2 mt-3" *ngFor="let uniqueRoll of (rolls$ | async), trackBy: trackRolls">
+        <mat-card>
+          <mat-card-content class="d-flex justify-content-center">
+            <h5>{{ uniqueRoll.value }}</h5>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

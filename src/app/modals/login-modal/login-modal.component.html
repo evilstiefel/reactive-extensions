@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Fehler</h1>
+<div mat-dialog-content>
+  <p>Leider ist bei der API-Anfrage etwas schief gelaufen: {{ data.message }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">{{ 'Abbrechen' | uppercase}}</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>{{ 'Anmelden' | uppercase }}</button>
+</div>
