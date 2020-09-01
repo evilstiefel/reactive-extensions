@@ -1,7 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subject, throwError } from 'rxjs';
 import { finalize, retryWhen, switchMap } from 'rxjs/operators';
 import { LoginModalComponent } from 'src/app/modals/login-modal/login-modal.component';
